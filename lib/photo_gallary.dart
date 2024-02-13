@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:my_app/data.dart';
+import 'package:my_app/show_image.dart';
 
 class PhotoGallery extends StatefulWidget {
   const PhotoGallery({super.key});
@@ -11,9 +12,8 @@ class PhotoGallery extends StatefulWidget {
   State<PhotoGallery> createState() => _PhotoGalleryState();
 }
 
-List<Gallery> photoList = [];
-
 class _PhotoGalleryState extends State<PhotoGallery> {
+  List<Gallery> photoList = [];
   @override
   void initState() {
     // TODO: implement initState
@@ -39,7 +39,17 @@ class _PhotoGalleryState extends State<PhotoGallery> {
                 ),
                 title: Text(photoList[index].title),
                 subtitle: Text('Number'),
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ShowSingleImage(
+                          title: photoList[index].title,
+                          id: photoList[index].id,
+                          bigImage: photoList[index].bigImage,
+                        ),
+                      ));
+                },
               );
             }
           },
