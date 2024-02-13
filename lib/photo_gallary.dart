@@ -14,7 +14,6 @@ class PhotoGallery extends StatefulWidget {
 List<Gallery> photoList = [];
 
 class _PhotoGalleryState extends State<PhotoGallery> {
-  
   @override
   void initState() {
     // TODO: implement initState
@@ -29,7 +28,7 @@ class _PhotoGalleryState extends State<PhotoGallery> {
           title: Text('Photo Gallery App'),
         ),
         body: ListView.builder(
-          itemCount: photoList.length, 
+          itemCount: photoList.length,
           itemBuilder: (context, index) {
             if (photoList.isEmpty) {
               return CircularProgressIndicator();
@@ -46,25 +45,26 @@ class _PhotoGalleryState extends State<PhotoGallery> {
           },
         ));
   }
-}
 
-Future<void> getColorFromApi() async {
-  Uri uri = Uri.parse('https://jsonplaceholder.typicode.com/photos');
-  Response response = await get(uri);
-  //print(response);
-  print(response.statusCode);
-  // print(response.body);
-  if (response.statusCode == 200) {
-    var decodeResponse = jsonDecode(response.body);
-    var data = decodeResponse;
-    for (var item in data) {
-      Gallery gallery = Gallery(
-        id: item['id'],
-        title: item['title'],
-        image: item['thumbnailUrl'],
-        bigImage: item['url'],
-      );
-      photoList.add(gallery);
+  Future<void> getColorFromApi() async {
+    Uri uri = Uri.parse('https://jsonplaceholder.typicode.com/photos');
+    Response response = await get(uri);
+    //print(response);
+    print(response.statusCode);
+    // print(response.body);
+    if (response.statusCode == 200) {
+      var decodeResponse = jsonDecode(response.body);
+      var data = decodeResponse;
+      for (var item in data) {
+        Gallery gallery = Gallery(
+          id: item['id'],
+          title: item['title'],
+          image: item['thumbnailUrl'],
+          bigImage: item['url'],
+        );
+        photoList.add(gallery);
+        setState(() {});
+      }
     }
   }
 }
